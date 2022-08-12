@@ -25,7 +25,7 @@ export function secret() {
     const includes = secret.includes || []
     const flag = '// encrypted'
     const entries = await fg(includes, {
-      ignore: ['**.jpg', '**.png', '**.gif', ...ignore]
+      ignore: ['**.jpg', '**.png', '**.gif', ...ignore],
     })
     try {
       entries.forEach(entry => endecrypt(entry))
