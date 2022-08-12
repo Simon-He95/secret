@@ -1,9 +1,16 @@
-<p align="center">
-<img height="100" src="./assets/kv.png" alt="secret">
-</p>
-<p align="center"><a href="https://www.npmjs.com/package/@simon_he/secret"><img src="https://img.shields.io/npm/v/@simon_he/secret?color=3fb883&amp;label=" alt="NPM version"></a></p>
+# 💭 secret
 
-## 💭 secret
+<p align="center">
+<img  src="./assets/kv.svg" alt="secret">
+</p>
+<p align="center"><a href="https://www.npmjs.com/package/@simon_he/secret"><img src="https://img.shields.io/npm/v/@simon_he/secret?color=3fb883&amp;label=" alt="NPM version"></a>
+</p>
+<p align="center"><a href="https://www.npmjs.com/package/@simon_he/secret"><img src="https://img.shields.io/npm/dm/@simon_he/secret?style=social"/>
+<a href="https://github.com/Simon-He95/secret"><img src="https://img.shields.io/github/stars/Simon-He95/secret?style=social"/>
+</a>
+</a>
+</p>
+
 灵感启发于[geekris1/funnycode](https://github.com/geekris1/funnycode), 实现一种代码的加密和解密方式。
 
 ## 🔅 场景
