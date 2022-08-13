@@ -20,19 +20,21 @@
 ```bash 
   npm install -g @simon_he/secret
 ```
+## :question:如何使用
+- 选择encrypt或者decrypt 来进行加密或者解密
+- 需要输入一个加密的密码
+
+![img](./assets/choose.jpg)
 
 ## 🔧 用法
 - 🔒  加密 : 需要指定一个key,作为解密的密钥
 
-```bash
-  secret --key=123
-```
+![img](./assets/key.jpg)
 
 - 🔓  解密 : 需要指定一个key,作为解密的密钥
 
-```bash
-  secret --key=123 --decrypt
-```
+![img](./assets/key.jpg)
+
 
 ## 😏 技巧
 - key可在package.json中提前配置

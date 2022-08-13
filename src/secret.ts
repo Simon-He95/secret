@@ -12,19 +12,18 @@ export function secret() {
     console.log(data)
     const action = jsShell('gum choose "encrypt" "decrypt"')?.trim()
     const decrypt = action === 'decrypt'
-    const key = jsShell('gum input --placeholder "input key"')?.trim()
     const spinner = ora(`Loading ${action}`).start()
     const pkg = await getPkg('./package.json')
     const secret = pkg.secret as Secret
+    const key = (secret.key || jsShell('gum input --placeholder "input key"'))?.trim()
     if (!secret)
       return spinner.fail('secret is not defined in package.json')
-    const secretKey = (secret.key || key)?.trim()
-    if (!secretKey)
-      return spinner.fail('secret key is not defined')
+    if (!key)
+      return spinner.fail('key is not defined or empty')
     const ignore = secret.ignore || []
-    if (!secretKey)
+    if (!key)
       return spinner.fail('secret key is not defined in package.json or arguments')
-    const ncryptObject = new Ncrypt(secretKey)
+    const ncryptObject = new Ncrypt(key)
     const includes = secret.includes || []
     const flag = '// encrypted'
     const entries = await fg(includes, {
