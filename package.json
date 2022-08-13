@@ -75,7 +75,6 @@
     "extends": "@antfu"
   },
   "secret": {
-    "key": "simon_he",
     "includes": [
       "./playground/src/**"
     ],

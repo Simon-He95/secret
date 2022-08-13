@@ -1,23 +1,26 @@
 import fs from 'fs'
 import Ncrypt from 'ncrypt-js'
-import { getPkg, transformArgv } from 'simon-js-tool'
+import { getPkg, jsShell } from 'simon-js-tool'
 import figlet from 'figlet'
 import fg from 'fast-glob'
 import ora from 'ora'
 import type { Secret } from './types'
 export function secret() {
-  const { key, decrypt } = transformArgv()
-  const action = decrypt ? 'decrypt' : 'encrypt'
-  figlet(`secret ${action}`, async (err, data) => {
+  figlet('secret', async (err, data) => {
     if (err)
       return console.log('Something went wrong...')
     console.log(data)
+    const action = jsShell('gum choose "encrypt" "decrypt"')?.trim()
+    const decrypt = action === 'decrypt'
+    const key = jsShell('gum input --placeholder "input key"')?.trim()
     const spinner = ora(`Loading ${action}`).start()
     const pkg = await getPkg('./package.json')
     const secret = pkg.secret as Secret
     if (!secret)
       return spinner.fail('secret is not defined in package.json')
-    const secretKey = secret.key || key
+    const secretKey = (secret.key || key)?.trim()
+    if (!secretKey)
+      return spinner.fail('secret key is not defined')
     const ignore = secret.ignore || []
     if (!secretKey)
       return spinner.fail('secret key is not defined in package.json or arguments')
