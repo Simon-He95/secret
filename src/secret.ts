@@ -14,8 +14,11 @@ export function secret() {
     const decrypt = action === 'decrypt'
     const spinner = ora(`Loading ${action}`).start()
     const pkg = await getPkg('./package.json')
+    const hasCache = jsShell('test -f ~/secret_key.txt && echo "true" || echo "false"')?.trim()
     const secret = pkg.secret as Secret
-    const key = (secret.key || jsShell('gum input --placeholder "input key"'))?.trim()
+    const key = (hasCache === 'true'
+      && jsShell('cat ~/secret_key.txt')?.trim())
+      || (secret.key || jsShell('gum input --placeholder "input key"'))?.trim()
     if (!secret)
       return spinner.fail('secret is not defined in package.json')
     if (!key)
@@ -46,6 +49,7 @@ export function secret() {
       if (!content.startsWith(flag)) {
         const _encryptedContent = ncryptObject.encrypt(content)
         encryptedContent = _encryptedContent && flag + _encryptedContent
+        jsShell(`echo ${key}> ~/secret_key.txt`)
       }
       if (decrypt) {
         if (!content.startsWith(flag))
@@ -54,6 +58,7 @@ export function secret() {
           decryptedContent = ncryptObject.decrypt(content.slice(12))
         }
         catch (error) {
+          jsShell('echo ""> ~/secret_key.txt')
           throw new Error('decrypted key is not valid')
         }
       }
